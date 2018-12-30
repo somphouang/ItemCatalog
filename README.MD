@@ -52,7 +52,7 @@ python init_database.py
 python app.py
 ```
 
-## Running HTTP pages for API request for JSON
+## JSON endpoint for API request
 - Possible API are the followings:
 ```
 http://localhost:8000/catalog/JSON
@@ -66,6 +66,3 @@ http://localhost:8000/catalog/PUT_CATEGORY_NAME_HERE/PUT_ITEM_NAME/JSON
 ```
 psql -c "DROP DATABASE catalogdb"
 ```
-
-#### Screenshot
-![screenshot](static/Screenshot.png)

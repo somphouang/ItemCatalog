@@ -7,12 +7,15 @@ from sqlalchemy import create_engine
 from core import Base
 
 # create table and the relationship id reference
+
+
 class User(Base):
     __tablename__ = 'user'
     id = Column(Integer, primary_key=True)
     username = Column(String, nullable=False)
     picture = Column(String)
     email = Column(String, nullable=False)
+
 
 class Item(Base):
     __tablename__ = 'item'
@@ -35,9 +38,10 @@ class Item(Base):
             'id': self.id,
             'name': self.name,
             'description': self.description,
-            'category_id' : self.category_id,
-            'owner' : self.owner
+            'category_id': self.category_id,
+            'owner': self.owner
         }
+
 
 class Category(Base):
     __tablename__ = 'category'

@@ -25,6 +25,7 @@ PROJECT_DIR = os.path.dirname(__file__)
 CLIENT_SECRETS_FILE = os.path.join(PROJECT_DIR, 'client_secrets.json')
 SCOPES = ['profile']
 
+
 @app.route('/login', methods=['GET'])
 def login_route():
     """
@@ -99,9 +100,12 @@ def oauth2callback():
 
     return redirect(url_for('index_route'))
 
+
 """
 Routes
 """
+
+
 @app.route('/', methods=['GET'])
 def index_route():
     # Homepage for web interface
@@ -109,6 +113,7 @@ def index_route():
         'title': 'Catalog Application Homepage',
         'has_sidebar': True
     }, user=user_info(), content={'categories': get_categories()})
+
 
 @app.route('/profile', methods=['GET'])
 def profile_route():
@@ -123,10 +128,11 @@ def profile_route():
     }, user=user, content={'categories': get_categories()})
 
 
-
 """
 Routes for Categories
 """
+
+
 @app.route('/categories', methods=['GET'])
 def categories_route():
     """
@@ -174,7 +180,6 @@ def category_edit_route(category_name):
     if target_category is None:
         abort(404)
 
-
     if request.method == 'POST':
         update_category(category_name)
         flash('Category updated')
@@ -187,6 +192,7 @@ def category_edit_route(category_name):
             'is_edit': True,
             'category': target_category
         })
+
 
 @app.route('/category/<path:category_name>/delete', methods=['GET', 'POST'])
 @login_required
@@ -216,7 +222,7 @@ def category_delete_route(category_name):
         return render_template('confirm.html', page={
             'title': 'Delete category'
         }, user=user_info(), content={
-            'message': 'Do you really want delete category ' \
+            'message': 'Do you really want delete category '
             + target_category.name + '?'})
 
 
@@ -244,6 +250,8 @@ def category_route(category_name):
 """
 Route for items
 """
+
+
 @app.route('/item/<path:item_name>/edit', methods=['GET', 'POST'])
 @login_required
 def item_edit_route(item_name):
@@ -303,7 +311,7 @@ def item_delete_route(item_name):
         return render_template('confirm.html', page={
             'title': 'Delete item'
         }, user=user_info(), content={
-            'message': 'Do you really want delete item ' \
+            'message': 'Do you really want delete item '
                        + target_item.name + '?'
         })
 
@@ -356,22 +364,23 @@ def item_add_route(category_name):
         })
 
 
-"""
-API and json
-"""
 '''
 JSON and API interface
 '''
+
+
 # Show all categories and items
 @app.route('/catalog/JSON')
 def allItemsJSON():
     categories = session.query(Category).all()
     category_set = [c.serialize for c in categories]
     for c in range(len(category_set)):
-        items = [i.serialize for i in session.query(Item).filter_by(category_id=category_set[c]["id"]).all()]
+        items = [i.serialize for i in session.query(Item).filter_by(
+            category_id=category_set[c]["id"]).all()]
         if items:
             category_set[c]["Item"] = items
     return jsonify(Category=category_set)
+
 
 # All categories
 @app.route('/catalog/categories/JSON')
@@ -379,11 +388,13 @@ def categoriesJSON():
     categories = session.query(Category).all()
     return jsonify(categories=[c.serialize for c in categories])
 
+
 # All items
 @app.route('/catalog/items/JSON')
 def itemsJSON():
     items = session.query(Item).all()
     return jsonify(items=[i.serialize for i in items])
+
 
 # All items in a specific category
 @app.route('/catalog/<path:category_name>/items/JSON')
@@ -392,15 +403,23 @@ def categoryItemsJSON(category_name):
     items = session.query(Item).filter_by(category_id=category.id).all()
     return jsonify(items=[i.serialize for i in items])
 
+
 # Specific one item
 @app.route('/catalog/<path:category_name>/<path:item_name>/JSON')
 def specificItemJSON(category_name, item_name):
     category = session.query(Category).filter_by(name=category_name).one()
-    item = session.query(Item).filter_by(name=item_name, category_id=category.id).one()
+    item = session.query(Item).filter_by(
+        name=item_name,
+        category_id=category.id
+        ).one()
     return jsonify(item=[item.serialize])
 
+
 if __name__ == '__main__':
-    # Placeholder to use when publish to github --> app.secret_key = 'PUT SECRET KEY HERE'
+    '''
+    # Placeholder to use when publish to github
+        --> app.secret_key = 'PUT SECRET KEY HERE'
+    '''
     app.secret_key = 'IoTXcD7rzRs9GcYcHbcDESPm'
     app.debug = True
 
