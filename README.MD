@@ -14,13 +14,13 @@ Item Catalog web application that uses the full stack development skills.  Proje
 3. Go to Credential under `APIs & Services`
 4. Add the following to the field `Authorized JavaScript origins`
 ```
-http://localhost:5000
+http://localhost:8000
 ```
 5. Add the following the field `Authorized redirect URIs`
 ```
-http://localhost:5000/login
-http://localhost:5000/catalog
-http://localhost:5000/oauth2callback
+http://localhost:8000/login
+http://localhost:8000/catalog
+http://localhost:8000/oauth2callback
 ```
 
 ## Quickstart
@@ -55,10 +55,10 @@ python app.py
 ## Running HTTP pages for API request for JSON
 - Possible API are the followings:
 ```
-http://localhost:5000/catalog/JSON
-http://localhost:5000/catalog/categories/JSON
-http://localhost:5000/catalog/PUT_CATEGORY_NAME_HERE/items/JSON
-http://localhost:5000/catalog/PUT_CATEGORY_NAME_HERE/PUT_ITEM_NAME/JSON
+http://localhost:8000/catalog/JSON
+http://localhost:8000/catalog/categories/JSON
+http://localhost:8000/catalog/PUT_CATEGORY_NAME_HERE/items/JSON
+http://localhost:8000/catalog/PUT_CATEGORY_NAME_HERE/PUT_ITEM_NAME/JSON
 ```
 
 #### Cleaning Up Project
